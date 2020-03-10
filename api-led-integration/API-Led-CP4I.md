@@ -14,7 +14,7 @@ One of the more prevelant implementation patterns out there that is driving Appl
 
 ## Cloud Pak for Integration
 
-You will be using the *Cloud Pak for Integration* with this lab.  The Cloud Pak for Integration is one of six Cloud Paks IBM has created that provide the full spectrum of integration capabilities in a single platform that can be deployed wherever you like, in any cloud.  It is built on top of *Red Hat Open Shift* and provides the robust power and flexibility of Kubernetes that is purpose built for the enterprise.  More information on Open Shift can be found [here](https://www.openshift.com/).  The specific capabilities of the Cloud Pak for Integration are provided succintly for you below:
+You will be using the *Cloud Pak for Integration* with this lab.  The Cloud Pak for Integration is one of six Cloud Paks IBM has created that provide the full spectrum of integration capabilities in a single platform that can be deployed wherever you like, in any cloud.  It is built on top of *Red Hat Open Shift* and provides the robust power and flexibility of Kubernetes that is purpose built for the enterprise.  More information on Open Shift can be found [here](https://www.openshift.com/).  The specific capabilities of the Cloud Pak for Integration are provided for you below:
 
 
 ### API lifecycle
@@ -85,5 +85,10 @@ This flow was created also by the Integration Team using the `App Connect Toolki
 3. When the developer machine comes up, you can login with the credentials of `ibmuser` and the password of `passw0rd`.
 4. It will drop you to the desktop of the developer machine.  All of the requisite applications you need are there.  This includes the Terminal and Web Browser and the Advanced REST Client.
 5. Double Click on the `Terminal` application and it will take you to the command line.
-6. Execute this command to do a 
+6. Execute this command to do a clone of the git repository
+```
+git clone https://github.com/ibm-cloudintegration/TechCon2020
+```
+
+7. kjkjkjk
 
