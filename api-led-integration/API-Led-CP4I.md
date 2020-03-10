@@ -17,27 +17,27 @@ One of the more prevelant implementation patterns out there that is driving Appl
 You will be using the *Cloud Pak for Integration* with this lab.  The Cloud Pak for Integration is one of six Cloud Paks IBM has created that provide the full spectrum of integration capabilities in a single platform that can be deployed wherever you like, in any cloud.  It is built on top of *Red Hat Open Shift* and provides the robust power and flexibility of Kubernetes that is purpose built for the enterprise.  More information on Open Shift can be found [here](https://www.openshift.com/).  The specific capabilities of the Cloud Pak for Integration are provided succintly for you below:
 
 
-###API lifecycle
+### API lifecycle
 
 Create, secure, manage, share and monetize APIs across clouds while you maintain continuous availability. Take control of your API ecosystem and drive digital business with a robust API strategy that can meet the changing needs of your users.
 
-###Application and data integration
+### Application and data integration
 
 Integrate all of your business data and applications more quickly and easily across any cloud, from the simplest SaaS application to the most complex systems — without worrying about mismatched sources, formats or standards.
 
-###Enterprise messaging
+### Enterprise messaging
 
 Simplify, accelerate and facilitate the reliable exchange of data with a flexible and security-rich messaging solution that’s trusted by some of the world’s most successful enterprises. Ensure you receive the information you need, when you need it — and receive it only once.
 
-###Event streaming
+### Event streaming
 
 Use Apache Kafka to deliver messages more easily and reliably and to react to events in real time. Provide more personalized customer experiences by responding to events before the moment passes.
 
-###High-speed data transfer
+### High-speed data transfer
 
 Send large files and data sets virtually anywhere, reliably and at maximum speed. Accelerate collaboration and meet the demands of complex global teams, without compromising performance or security.
 
-###Secure gateway
+### Secure gateway
 
 Create persistent, security-rich connections between your on-premises and cloud environments. Quickly set up and manage gateways, control access on a per-resource basis, configure TLS encryption and mutual authentication, and monitor all of your traffic.
 
@@ -79,4 +79,11 @@ ABC is looking to automate the processing of invoices from their respective part
 This flow was created also by the Integration Team using the `App Connect Toolkit`.  Version 11 is used in the Cloud Pak for Integration and has been provided as a bar file.  You will deploy this bar file like Provider Lookup, but the parameters you use will be different
 
 ## Implementation of the APIs on the Cloud Pak for Integration
+
+1. Your instructor will provide the information how to access your lab environments.
+2. Once you have access to your environment, gog into your provided demo environment by selecting the "Developer" Machine from the list of machines
+3. When the developer machine comes up, you can login with the credentials of `ibmuser` and the password of `passw0rd`.
+4. It will drop you to the desktop of the developer machine.  All of the requisite applications you need are there.  This includes the Terminal and Web Browser and the Advanced REST Client.
+5. Double Click on the `Terminal` application and it will take you to the command line.
+6. Execute this command to do a 
 
