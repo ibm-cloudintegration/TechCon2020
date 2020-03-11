@@ -52,15 +52,15 @@ The basic premise of API Led Integration is based around the exposure of the val
 
 ## Lab Environment
 
-You will be provded an environment to implement the use case.  It is a pre-configured CP4I cluster that will be unique for each student.  It has instances of App Connect, API Connect and MQ that are setup for you to start implementing your use case right away.  The use cases and the steps to implement each of these use cases will be provided below.
+You will be provded an environment to implement the use case.  It is a pre-configured CP4I cluster that will be unique for each student.  It has instances of App Connect, API Connect and MQ that are setup for you to start implementing your use case right away.  This environment also contains some of the common services that are only part of the Cloud Pak for Integration like *Platform Tracing* and the *Platform Navigator*.  The use cases and the steps to implement each of these use cases will be provided below.
 
 ## The Use Case
 
-ABC Health is in the process of modernizing their integration infrastructure, and has implemented a new installation of the Cloud Pak for Integration to support their new strateging initaives around API enabling some older interfaces so they can be consumed by a wider audience.  To accomplish this, RESTful interfaces will be provided for each of the APIs using an API Gateway and managed using the API Management Capability provided by the Cloud Pak for Integration. There are a total of two APIs to implement, which will be described in the sections below.
+ABC Health is in the process of modernizing their integration infrastructure, and has implemented a new installation of the Cloud Pak for Integration to support their new strateging initiatives around API enabling some older interfaces so they can be consumed by a wider audience.  To accomplish this, RESTful interfaces will be provided for each of the APIs using an API Gateway and managed using the API Management Capability provided by the Cloud Pak for Integration. There are a total of two APIs to implement, which will be described in the sections below.
 
 ### API 1 Provider Lookup
 
-ABC uses a SaaS based CRM system (Salesforce) for maintaining their master data.  Since ABC Health is using the Cloud Pak for Integration, which includes the App Connect integration capability, the folks on the CRM integration team used the `App Connect Designer` to build a flow that exposed a custom object that was created for the Health Care Provider records.  You will not be creating this interface, as it has been created for you already, but you will be taking the deployable object (App Connect .bar file) and deploy it your CP4I Cluster. 
+ABC uses a SaaS based CRM system (Salesforce) for maintaining their master data.  Since ABC Health is using the Cloud Pak for Integration, which includes the App Connect integration capability, the folks on the CRM integration team used the `App Connect Designer` to build a flow that exposed a custom object that was created for the Health Care Provider records.  You will not be creating this interface, as it has been created for you already, but you will be taking the deployable object (App Connect .bar file) and deploy it your CP4I Cluster.  The barfile used here is called `Provider.bar` (note the case senstitivity.
 
 The Provider Lookup API is a REST API that extracts out providers (aka Doctors) by type.  For the scope of this lab, there are two supported types "GP" for General Practioner or "Time Lords" for when they are needed.
 
@@ -76,9 +76,15 @@ The structure of the model used for the provider API is here:
 
 ABC is looking to automate the processing of invoices from their respective partners using a standard mechanism that is REST based, and plugs in neatly into their architecture.  This interface is exposed via a PUT Method that will receive in an invoice in JSON format coming in externally, whether it be from mobile, web or otherwise.  Once the invoice is received it will be put to queue (via MQ) for processing on the back end.  For this lab, the API covers the put to queue only.
 
-This flow was created also by the Integration Team using the `App Connect Toolkit`.  Version 11 is used in the Cloud Pak for Integration and has been provided as a bar file.  You will deploy this bar file like Provider Lookup, but the parameters you use will be different
+This flow was created also by the Integration Team using the `App Connect Toolkit`.  Version 11 is used in the Cloud Pak for Integration and has been provided as a bar file.  You will deploy this bar file like Provider Lookup, but the parameters you use will be different.  The barfile used here is called `invoice-dte.bar` (note the case sensitivity).
+
+### Using Skytap
+
+For this lab, you might be using the Skytap interface to access your Cloud Pak for Integration environment.  Skytap provides the means to host and provide remote access to environments running on the IBM Cloud.  It provides a web browser based interface to access the various nodes on the instance.  While this is convenient, it also presents challenges in doing simple things like copy and paste. The simplest way to handle this would be to open this lab document up on the Developer machine *inside* of the Skytap interface.  There are ways to copy and paste from a host machine (e.g. the machine where you are accessing Skytap via the browser) and the remote Skytap machine.  Your instructor can demonstrate this as needed.
 
 ## Implementation of the APIs on the Cloud Pak for Integration
+
+### Get acclimated with your demo environment
 
 1. Your instructor will provide the information how to access your lab environments.
 2. Once you have access to your environment, gog into your provided demo environment by selecting the "Developer" Machine from the list of machines
@@ -90,5 +96,21 @@ This flow was created also by the Integration Team using the `App Connect Toolki
 git clone https://github.com/ibm-cloudintegration/TechCon2020
 ```
 
-7. kjkjkjk
+7. execute this command to access the directory with the demo files `cd /TechCon2020/api-led-integration`.
+8. Return to the Desktop on the Developer VM and then find the `Firefox` icon.  Double Click on it to bring up the browser.
+9. There are a few bookmarks created for you on the browser.  The first one coming from the left is the OpenShift Console.  The location of that URL is `https://console-openshift-console.apps.demo.ibmdte.net/dashboards`. 
+10. The next important bookmark is for the Platform Navigator.  You will be using this one the most. that url is `https://cp4i-integration.apps.demo.ibmdte.net/`.
+11. **Important Note** you can only access these URLs from within the Skytap UI.  They are not accesible from the host machine used to access Skytap via its browser interface.  
+12. Open up the Platform Navigator.  The credentials to access the navigator should already be pre-populated for you.  Click `Login`.
+13. Once you are logged in, it will take you the *Platform Navigator*.  This portal provides you access all of your capabilities on the platform as well as the ability to create new instances of these capabilities.
+![](platnav1.png)
+14. To access an existing instance, click on the `View instances` tab within the platform navigator and then select the instance you want to access by clicking on the link.  For example, with API Connect, simply click the link
+![](platnav2.png)
+15. Once you click on the link, it will log directly into your provider organization on API Connect, re-using (or re-prompting for) your credentials provided for accessing the platform navigator.  The Cloud Pak for Integration uses the authentication provided by the Common Services layer for all of the primary portal components that make up the platform.
+16. You can access the other capabilities of the platform from within another capability via the Platform Navigator Menu.  Let's try to connect to App Connect.  From the top left of the screen, select the "hamburger" menu icon, it looks like three consective horizontal lines.
+17. The menu then pops up.  Select `App Connect` from the list.  Depending on your environment, you may see more than one instances running.  Select the `ace` instance to log into the Enterprise Manager.  It should log you right in, if your session is still active.  If not, it might prompt you log back in.  If so, the credentials are auto-filled for you.
+18. This concludes the basic acclimation.  If you want to poke around some more, you can do so using the same menu we just used.  If you get lost, simply use the `Platform home` option from the menu, where it will take you back to the Platform Navigator. When you are ready to commence with the deployment of our APIs, move on to the next section.
+
+### Deploy API #1
+
 
