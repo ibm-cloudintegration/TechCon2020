@@ -60,7 +60,7 @@ ABC Health is in the process of modernizing their integration infrastructure, an
 
 ### API 1 Provider Lookup
 
-ABC uses a SaaS based CRM system (Salesforce) for maintaining their master data.  Since ABC Health is using the Cloud Pak for Integration, which includes the App Connect integration capability, the folks on the CRM integration team used the `App Connect Designer` to build a flow that exposed a custom object that was created for the Health Care Provider records.  You will not be creating this interface, as it has been created for you already, but you will be taking the deployable object (App Connect .bar file) and deploy it your CP4I Cluster.  The barfile used here is called `Provider.bar` (note the case senstitivity.
+ABC uses a SaaS based CRM system (Salesforce) for maintaining their master data.  Since ABC Health is using the Cloud Pak for Integration, which includes the App Connect integration capability, the folks on the CRM integration team used the `App Connect Designer` to build a flow that exposed a custom object that was created for the Health Care Provider records.  You will not be creating this interface, as it has been created for you already, but you will be taking the deployable object (App Connect .bar file) and deploy it your CP4I Cluster.  The barfile used here is called `provider.bar` (note the case senstitivity.
 
 The Provider Lookup API is a REST API that extracts out providers (aka Doctors) by type.  For the scope of this lab, there are two supported types "GP" for General Practioner or "Time Lords" for when they are needed.
 
@@ -109,8 +109,24 @@ git clone https://github.com/ibm-cloudintegration/TechCon2020
 15. Once you click on the link, it will log directly into your provider organization on API Connect, re-using (or re-prompting for) your credentials provided for accessing the platform navigator.  The Cloud Pak for Integration uses the authentication provided by the Common Services layer for all of the primary portal components that make up the platform.
 16. You can access the other capabilities of the platform from within another capability via the Platform Navigator Menu.  Let's try to connect to App Connect.  From the top left of the screen, select the "hamburger" menu icon, it looks like three consective horizontal lines.
 17. The menu then pops up.  Select `App Connect` from the list.  Depending on your environment, you may see more than one instances running.  Select the `ace` instance to log into the Enterprise Manager.  It should log you right in, if your session is still active.  If not, it might prompt you log back in.  If so, the credentials are auto-filled for you.
-18. This concludes the basic acclimation.  If you want to poke around some more, you can do so using the same menu we just used.  If you get lost, simply use the `Platform home` option from the menu, where it will take you back to the Platform Navigator. When you are ready to commence with the deployment of our APIs, move on to the next section.
+![](platnav3.png)
+18. This concludes the section on basic UI acclimation.  If you want to poke around some more, you can do so using the same menu we just used.  If you get lost, simply use the `Platform home` option from the menu, where it will take you back to the Platform Navigator. When you are ready to commence with the deployment of our APIs, move on to the next section.
 
 ### Deploy API #1
 
-
+1. The first API to deploy is the `provider` API.  This integration has been created for you already and should have been pulled down from github already.
+2. Before we can add and deploy the `provider.bar` we need to create a secret that will represent the credentials to our various cloud environments.
+3. From your desktop on the Developer machine, open a `Terminal` session to access the CLI.
+3. Change directories to `/home/ibmuser/TechCon2020/api-led-integration`.  This directory contains all the files for the lab (as well as local copy of the documentation).
+3. The credentials to our cloud environments are on a file called `credentials.yaml.gpg`.  The file is encrypted.  
+4. Decompress this file using this command `gpg -d credentials.yaml.gpg > credentials.yaml`.  When executing this command, it will prompt you for a password.  Ask your instructor for the password.
+5. Log into the Open Shift cluster by using this command: `oc login -u admin -p passw0rd https://api.demo.ibmdte.net:6443`
+6. Change context to the `ace` project by entering `oc project ace`
+5. Next step is to create the secret. The script called `generateSecrets.sh` which is located in the `api-led-integration` will do that for us.
+6. Make sure `generateSecrets.sh` is executble by using chmod (e.g.  `chmod 755 generateSecrets.sh`).
+7. Create the secret by issuing this command: `./generateSecrets.sh designerSecret`
+8. Once completed, it will advise you if the secret was created properly.  Confirm it create the secret by issuing a `oc get secrets`.
+3. Next we will upload the `provider.bar` and set it up as its own release on App Connect.  Via the Platform Navigator, access the `ace` instance via the menu on the left or the main page.
+4. Once you are on the main page of the ACE Enterprise Manager, click the `+Add Server` button.
+5. Click the `+` in the box to open the search dialogue
+6. Browse for the 
